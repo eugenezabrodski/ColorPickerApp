@@ -7,12 +7,18 @@
 
 import UIKit
 
+
+
 class SecondViewController: UIViewController {
 
+    var newColor: UIColor?
+
+    var delegate: ProtocolVC?
+    
     var red: CGFloat = 0
     var green: CGFloat = 0
     var blue: CGFloat = 0
-    var opacity:CGFloat = 1
+    var opacity: CGFloat = 1
     
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var redSlider: UISlider!
@@ -22,13 +28,18 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var blueSlider: UISlider!
     @IBOutlet weak var blueTF: UITextField!
     @IBOutlet weak var opacitySlider: UISlider!
+    @IBOutlet weak var opacityTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.colorView.backgroundColor = newColor
+}
+    
+    @IBAction func saveButton() {
+        delegate?.update(color: colorView.backgroundColor)
+        navigationController?.popToRootViewController(animated: true)
     }
     
-
     @IBAction func sliderAction(_ sender: UISlider) {
         updateColor()
         blueTF.text = String(blueSlider.value)
@@ -43,7 +54,12 @@ class SecondViewController: UIViewController {
         updateColor()
     }
     
-
+    @IBAction func opacitySliderAction(_ sender: Any) {
+        opacityTF.text = String(opacitySlider.value)
+        updateColor()
+    }
+    
+    
     
     
     func updateColor() {
@@ -58,9 +74,11 @@ class SecondViewController: UIViewController {
     func textFieldActionUpdateColor() {
         guard let redText = redTF.text,
         let greenText = greenTF.text,
-              let blueText = blueTF.text else { return }
+              let blueText = blueTF.text,
+              let opacityText = opacityTF.text
+        else { return }
         if let redValue = Float(redText) {
-            if redValue > 1 {redSlider.value = 1.0 }
+            if redValue > 1 { redSlider.value = 1.0 }
             else {
                 redSlider.value = redValue
             }
@@ -73,7 +91,14 @@ class SecondViewController: UIViewController {
             if blueValue > 1 {blueSlider.value = 1.0 }
             else { blueSlider.value = blueValue }
         }
+        if let opacityValue = Float(opacityText) {
+            if opacityValue > 1 {opacitySlider.value = 1.0 }
+            else { opacitySlider.value = opacityValue }
+        }
     }
+    
+
+
     
     /*
     // MARK: - Navigation
@@ -86,3 +111,5 @@ class SecondViewController: UIViewController {
     */
 
 }
+
+
