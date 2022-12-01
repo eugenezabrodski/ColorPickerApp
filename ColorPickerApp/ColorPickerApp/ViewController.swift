@@ -9,9 +9,15 @@ import UIKit
 
 protocol ProtocolVC {
     func update(color: UIColor?)
+    func updateSlider(red: CGFloat, green: CGFloat, blue: CGFloat)
 }
 
+
 final class ViewController: UIViewController {
+    
+    var redValue: CGFloat = 0
+    var greenValue: CGFloat = 0
+    var blueValue: CGFloat = 0
 
 
     @IBOutlet private var viewOutlet: UIView!
@@ -26,6 +32,9 @@ final class ViewController: UIViewController {
         else { return }
         vc.delegate = self
         vc.newColor = self.view.backgroundColor
+        vc.red = redValue
+        vc.green = greenValue
+        vc.blue = blueValue
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -35,6 +44,12 @@ extension ViewController: ProtocolVC {
     func update(color: UIColor?) {
         viewOutlet.backgroundColor = color
     }
+    func updateSlider(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        redValue = red
+        greenValue = green
+        blueValue = blue
+    }
+    
 }
 
 

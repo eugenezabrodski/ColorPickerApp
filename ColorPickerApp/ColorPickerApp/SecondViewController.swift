@@ -17,13 +17,13 @@ final class SecondViewController: UIViewController {
 
     var delegate: ProtocolVC?
     
-    private var red: CGFloat = 0
-    private var green: CGFloat = 0
-    private var blue: CGFloat = 0
-    private var opacity: CGFloat = 1
+    var red: CGFloat = 0
+    var green: CGFloat = 0
+    var blue: CGFloat = 0
+    var opacity: CGFloat = 1
     
     @IBOutlet private weak var colorView: UIView!
-    @IBOutlet private weak var redSlider: UISlider!
+    @IBOutlet weak var redSlider: UISlider!
     @IBOutlet private weak var redTF: UITextField!
     @IBOutlet private weak var greenSlider: UISlider!
     @IBOutlet private weak var greenTF: UITextField!
@@ -36,13 +36,14 @@ final class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.colorView.backgroundColor = newColor
+        updateNewColor()
 }
     
     //MARK: - Methods
     
     @IBAction func saveButton() {
         delegate?.update(color: colorView.backgroundColor)
+        delegate?.updateSlider(red: red, green: green, blue: blue)
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -99,9 +100,16 @@ final class SecondViewController: UIViewController {
             else { opacitySlider.value = opacityValue }
         }
     }
-    
 
-
+    func updateNewColor() {
+        self.colorView.backgroundColor = newColor
+        redSlider.value = Float(red)
+        greenSlider.value = Float(green)
+        blueSlider.value = Float(blue)
+        redTF.text = String(redSlider.value)
+        greenTF.text = String(greenSlider.value)
+        blueTF.text = String(blueSlider.value)
+    }
     
     /*
     // MARK: - Navigation
