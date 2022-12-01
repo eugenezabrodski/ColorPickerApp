@@ -9,31 +9,37 @@ import UIKit
 
 
 
-class SecondViewController: UIViewController {
+final class SecondViewController: UIViewController {
 
+    //MARK: - Properties
+    
     var newColor: UIColor?
 
     var delegate: ProtocolVC?
     
-    var red: CGFloat = 0
-    var green: CGFloat = 0
-    var blue: CGFloat = 0
-    var opacity: CGFloat = 1
+    private var red: CGFloat = 0
+    private var green: CGFloat = 0
+    private var blue: CGFloat = 0
+    private var opacity: CGFloat = 1
     
-    @IBOutlet weak var colorView: UIView!
-    @IBOutlet weak var redSlider: UISlider!
-    @IBOutlet weak var redTF: UITextField!
-    @IBOutlet weak var greenSlider: UISlider!
-    @IBOutlet weak var greenTF: UITextField!
-    @IBOutlet weak var blueSlider: UISlider!
-    @IBOutlet weak var blueTF: UITextField!
-    @IBOutlet weak var opacitySlider: UISlider!
-    @IBOutlet weak var opacityTF: UITextField!
+    @IBOutlet private weak var colorView: UIView!
+    @IBOutlet private weak var redSlider: UISlider!
+    @IBOutlet private weak var redTF: UITextField!
+    @IBOutlet private weak var greenSlider: UISlider!
+    @IBOutlet private weak var greenTF: UITextField!
+    @IBOutlet private weak var blueSlider: UISlider!
+    @IBOutlet private weak var blueTF: UITextField!
+    @IBOutlet private weak var opacitySlider: UISlider!
+    @IBOutlet private weak var opacityTF: UITextField!
+    
+    //MARK: - Life cicle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.colorView.backgroundColor = newColor
 }
+    
+    //MARK: - Methods
     
     @IBAction func saveButton() {
         delegate?.update(color: colorView.backgroundColor)
@@ -58,9 +64,6 @@ class SecondViewController: UIViewController {
         opacityTF.text = String(opacitySlider.value)
         updateColor()
     }
-    
-    
-    
     
     func updateColor() {
         red = CGFloat(redSlider.value)

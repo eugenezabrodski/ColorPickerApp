@@ -11,16 +11,16 @@ protocol ProtocolVC {
     func update(color: UIColor?)
 }
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
 
-    @IBOutlet var viewOutlet: UIView!
+    @IBOutlet private var viewOutlet: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    @IBAction func goToSecondVC(_ sender: UIButton) {
+    @IBAction private func goToSecondVC(_ sender: UIButton) {
         let stor = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = stor.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController
         else { return }
